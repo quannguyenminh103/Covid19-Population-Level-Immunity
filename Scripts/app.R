@@ -38,12 +38,14 @@ ui <- fluidPage(
         ))),
       wellPanel(
         tags$small(
-          "Data Sources:", tags$br(),
-            "- COVID-19 case data collated by The New York Times, based on reports from state and local health agencies:", 
-          'https://github.com/nytimes/covid-19-data.', tags$br(),
-            "- Vaccination data collated by Our World in Data from United States Centers for Disease Control and Prevention:",
-          'https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations.', tags$br(),
-            "- Population data from United States Census Bureau."
+          strong("Data Sources:"), tags$br(),
+            "- ", tags$a("COVID-19 case data collated by The New York Times, based on reports from state and local health agencies.", 
+          href = 'https://github.com/nytimes/covid-19-data'), tags$br(),
+            "- ", tags$a("Vaccination data collated by Our World in Data from United States Centers for Disease Control and Prevention.",
+          href = 'https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations'), tags$br(),
+            "- Population data from United States Census Bureau.", tags$br(),
+          strong("Codes:"), tags$br(),
+          " - ",tags$a(href = 'https://github.com/quannguyenminh103/Covid19-Population-Level-Immunity', "Covid19-Population-Level-Immunity")
         ))
     ),
     mainPanel(
