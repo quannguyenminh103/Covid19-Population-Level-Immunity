@@ -28,7 +28,14 @@ ui <- fluidPage(
                                   style = "color: steelblue"),
                      no = tags$i(class = "fa fa-circle-o", 
                                  style = "color: steelblue"))),
-                 actionLink("selectall",h4("Select/Deselect All"))
+                 # Use two separate action links to allow user to select all or
+                 # unselect all states quickly
+                 span(
+                  actionLink("selectall","Select All"),
+                  "or",
+                  actionLink("unselectall","Unselect All"),
+                  style = "font-size: 2rem; font-weight: bold;"
+                 )
         ),
       )),
       wellPanel(
@@ -81,46 +88,33 @@ ui <- fluidPage(
 
 ## back-end core
 server <- function(input, output, session) {
+  
+  # Trigger updating of the checkbox groups whenever the select all or unselect
+  # all buttons are pressed
   observe({
-    ## select/deselect ALL
-    if (input$selectall > 0) {
-      if (input$selectall %% 2 == 0){
-        updateCheckboxGroupButtons(session, inputId = "state",
-                                   label = "Choose a state",
-                                   choices = all_states,
-                                   selected = "United States")
-        
-      }
-      else {
-        updateCheckboxGroupButtons(session, inputId = "state",
-                                   label = "Choose a state",
-                                   choices = all_states,
-                                   selected =  all_states)
-        
-      }} else {
-        updateCheckboxGroupButtons(session,
-                                   inputId = "state",
-                                   label = "Choose a state",
-                                   choices = all_states,
-                                   selected = "United States")
-      }
-  })
-  ## Current Immunity Level Plot
+    updateCheckboxGroupButtons(session, inputId = "state", selected = all_states)
+  }) %>% 
+    bindEvent(input$selectall)
+  
+  observe({
+    updateCheckboxGroupButtons(session, inputId = "state", selected = "United States")
+  }) %>% 
+    bindEvent(input$unselectall) 
+  
+  ## Current Immunity Level Plot with caching 
   output$plot1 <- renderPlotly({
     immuStatePlot(input$state, input$vaccinatedType, as.numeric(input$ascertainment_bias))
-
-  })
+  }) %>% bindCache(input$state, input$vaccinatedType, input$ascertainment_bias)
+  
   ## Daily Immunity Level Plot
   output$plot2 <- renderPlotly({
     dailyPlot(input$state, input$vaccinatedType, as.numeric(input$ascertainment_bias))
-
-    
-  })
+  }) %>% bindCache(input$state, input$vaccinatedType, input$ascertainment_bias)
+  
   ## Map
   output$map1 <- renderLeaflet({
     MakeMap(input$vaccinatedType, input$ascertainment_bias)
-
-  })
+  }) 
   
 }
 shinyApp(ui,server)
