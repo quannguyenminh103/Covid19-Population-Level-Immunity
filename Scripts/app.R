@@ -24,23 +24,17 @@ ui <- fluidPage(
                    selected = "United States",
                    individual = TRUE,
                    checkIcon = list(
-                     yes = tags$i(class = "fa fa-circle", 
-      #                             style = "color: steelblue"),
-      #                no = tags$i(class = "fa fa-circle-o", 
-      #                            style = "color: steelblue"))),
-      #            actionLink("selectall",h4("Select/Deselect All"))
-      #   ),
-      # )),
-                  style = "color: steelblue"),
-                  no = tags$i(class = "fa fa-circle-o", 
-                              style = "color: steelblue"))),
-                  # Use two separate action links to allow user to select all or
-                  # unselect all states quickly
-                  span(
-                    actionLink("selectall","Select All"),
-                    "or",
-                    actionLink("unselectall","Unselect All"),
-                    style = "font-size: 1.7rem; font-weight: bold;"
+                      yes = tags$i(class = "fa fa-circle", 
+                      style = "color: steelblue"),
+                      no = tags$i(class = "fa fa-circle-o", 
+                                  style = "color: steelblue"))),
+                      # Use two separate action links to allow user to select all or
+                      # unselect all states quickly
+                      span(
+                        actionLink("selectall","Select All"),
+                        "or",
+                        actionLink("unselectall","Unselect All"),
+                        style = "font-size: 1.7rem; font-weight: bold;"
                   )
         ),
       )),
@@ -84,9 +78,10 @@ ui <- fluidPage(
           protective immunity.'
         )))),
       fluidRow(column(10, wellPanel(tags$small(
-        "Developers: ", tags$a(href = "https://www.linkedin.com/in/king-nguyen-103/", 'Quan M Nguyen'), ",", tags$a(href = 'http://sjbeckett.github.io/', 'Stephen J Beckett'), " and ",
+        "Developers: ", tags$a(href = "https://www.linkedin.com/in/king-nguyen-103/", 'Quan M Nguyen'), ",", tags$a(href = 'http://sjbeckett.github.io/', 'Stephen J Beckett'), ", and ",
         tags$a(href = 'https://weitzgroup.biosci.gatech.edu/', "Joshua S Weitz."), "For more information contact Dr. Beckett (stephen.beckett@biology.gatech.edu) and
-              Dr. Weitz (jsweitz@gatech.edu)."
+              Dr. Weitz (jsweitz@gatech.edu). This dashboard is powered and hosted by ", tags$a(href = "https://www.rstudio.com/", "RStudio."), "We acknowledge additional code contributions from ",
+              tags$a(href = 'http://nickstrayer.me/', "Nick Strayer.")
       ), align = 'center')))
     )
   )
